@@ -11,6 +11,8 @@ export function CommentsPage() {
   const nextPage = () => {
     history.push(`${pageNum + 1}`);
     dispatch({ type: `NEXT_PAGE` });
+    dispatch({ type: `ADD_COMMENTS`, payload: comments });
+
   };
 
   return (

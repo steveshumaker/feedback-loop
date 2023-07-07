@@ -11,6 +11,7 @@ export function FeelingsPage() {
   const nextPage = () => {
     history.push(`${pageNum + 1}`);
     dispatch({ type: `NEXT_PAGE` });
+    dispatch({ type: `ADD_FEELING`, payload: feeling });
   };
 
   return (

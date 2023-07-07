@@ -11,6 +11,8 @@ export function UnderstandingPage() {
   const nextPage = () => {
     history.push(`${pageNum + 1}`);
     dispatch({ type: `NEXT_PAGE` });
+    dispatch({ type: `ADD_UNDERSTANDING`, payload: understanding });
+
   };
 
   return (
