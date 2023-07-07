@@ -20,16 +20,16 @@ function App() {
       <Route exact path="/">
         <FeelingsPage/>
       </Route>
-      <Route exact path="/understanding">
+      <Route exact path="/1">
         <UnderstandingPage/>
       </Route>
-      <Route exact path="/support">
+      <Route exact path="/2">
         <SupportPage/>
       </Route>
-      <Route exact path="/comments">
+      <Route exact path="/3">
         <CommentsPage/>
       </Route>
-      <Route exact path="/review">
+      <Route exact path="/4">
         <ReviewPage/>
       </Route>
       
