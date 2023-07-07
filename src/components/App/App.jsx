@@ -7,6 +7,7 @@ import { CommentsPage } from "../CommentsPage/CommentsPage";
 import { SupportPage } from "../SupportPage/SupportPage";
 import { ReviewPage } from "../ReviewPage/ReviewPage";
 import { UnderstandingPage } from "../UnderstandingPage/UnderstandingPage";
+import { ThanksPage } from "../ThanksPage/ThanksPage";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
       </Route>
       <Route exact path="/4">
         <ReviewPage/>
+      </Route>
+      <Route exact path="/5">
+        <ThanksPage/>
       </Route>
       
     </Router>
