@@ -10,19 +10,19 @@ Additional README details can be found [here](https://github.com/PrimeAcademy/re
 
 ## TODO
 0. What we will need:
-- Redux
-- BrowserRouter
+- Redux [added]
+- BrowserRouter [added]
 - React state
 - MUI
-1. Create pages
-- - Create router
-2. Routes and links to each page
+1. Create pages [done]
+- - Create router [done]
+2. Routes and links to each page [done]
 3. Create Redux store
-- - Create store
-- - Create reducer
-- - Combine reducers, if needed
+- - Create store [done]
+- - Create reducer [in progress]
+- - Combine reducers, if needed [done]
 4. Each page should have a state
-5. Create form inputs on each page
+5. Create form inputs on each page 
 6. 'Next' button should update the state, update the store, and move to the next page
 7. Final submit button should finalize the state and submit to the database
 8. Input validation

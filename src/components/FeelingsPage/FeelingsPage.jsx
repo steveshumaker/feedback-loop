@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 export function FeelingsPage() {
+  const [feeling, setFeeling] = useState("");
   const dispatch = useDispatch();
   const pageNum = useSelector((store) => store.pages);
   const history = useHistory();
@@ -14,7 +16,12 @@ export function FeelingsPage() {
   return (
     <div>
       <h2>How are you feeling today?</h2>
-      <input type="number" placeholder="1-5" />
+      <input
+        value={feeling}
+        onChange={(e) => setFeeling(e.target.value)}
+        type="number"
+        placeholder="1-5"
+      />
       <button onClick={nextPage}>Next</button>
     </div>
   );
