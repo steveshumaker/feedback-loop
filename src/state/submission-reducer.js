@@ -8,6 +8,8 @@ function submissionReducer(state = {}, action) {
       return {...state, support: action.payload};
     case `ADD_COMMENTS`:
       return {...state, comments: action.payload};
+    case `RESET`:
+      return state = {};
 
   }
   return state;
