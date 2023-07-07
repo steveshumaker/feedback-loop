@@ -4,11 +4,19 @@ import { useHistory } from "react-router-dom";
 export function ReviewPage() {
   const dispatch = useDispatch();
   const pageNum = useSelector((store) => store.pages);
-  const review = useSelector((store) => store.submission)
+  const review = useSelector((store) => store.submission);
   const history = useHistory();
 
   const nextPage = () => {
-    history.push(`${pageNum + 1}`);
+    fetch("/review", {
+      method: "POST",
+      body: JSON.stringify(review),
+      headers: { "Content-Type": "application, json" },
+    }).then((response) => {
+      history.push(`${pageNum + 1}`);
+    }).catch((error) => {
+      console.error(error);
+    })
     dispatch({ type: `NEXT_PAGE` });
   };
 
