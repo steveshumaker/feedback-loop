@@ -1,7 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import { validateInput } from "../helpers/inputValidation";
+import { TextField } from "@mui/material";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 export function UnderstandingPage() {
   const [understanding, setUnderstanding] = useState("");
@@ -21,19 +27,39 @@ export function UnderstandingPage() {
   const previousPage = () => {
     history.push(`/`);
     dispatch({ type: `PREVIOUS_PAGE` });
-  }
+  };
 
   return (
-    <div>
-      <h2>How well did you understand today's material?</h2>
-      <input
-        value={understanding}
-        onChange={(e) => setUnderstanding(e.target.value)}
-        type="number"
-        placeholder="1-5"
-      />
-      <button onClick={nextPage}>Next</button>
-      <button onClick={previousPage}>Back</button>
-    </div>
+    <Card sx={{ width: "50%", margin: "auto" }}>
+      <CardContent>
+        <div>
+          <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+            How well did you understand today's material?
+          </Typography>
+
+          <TextField
+            label="Understanding?"
+            value={understanding}
+            onChange={(e) => setUnderstanding(e.target.value)}
+            type="number"
+            placeholder="1-5"
+          />
+          <CardActions>
+            {understanding > 0 && understanding < 6 ? (
+              <Button variant="contained" onClick={nextPage}>
+                Next
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={nextPage} disabled>
+                Next
+              </Button>
+            )}
+            <Button variant="contained" onClick={previousPage}>
+              Back
+            </Button>
+          </CardActions>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

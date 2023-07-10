@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
 
 export function CommentsPage() {
   const [comments, setComments] = useState("");
@@ -20,15 +27,28 @@ export function CommentsPage() {
   };
 
   return (
-    <div>
-      <h2>Please enter your comments below:</h2>
-      <input
-        value={comments}
-        onChange={(e) => setComments(e.target.value)}
-        type="text"
-      />
-      <button onClick={nextPage}>Next</button>
-      <button onClick={previousPage}>Back</button>
-    </div>
+    <Card sx={{ width: "50%", margin: "auto" }}>
+      <CardContent>
+        <div>
+          <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+            Please enter your comments below:
+          </Typography>
+          <TextField
+            label="Comments?"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+            type="text"
+          />
+          <CardActions>
+            <Button variant="contained" onClick={nextPage}>
+              Next
+            </Button>
+            <Button variant="contained" onClick={previousPage}>
+              Back
+            </Button>
+          </CardActions>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
