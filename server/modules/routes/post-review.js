@@ -4,7 +4,6 @@ const QUERY = `INSERT INTO feedback ("feeling", "understanding", "support", "com
               VALUES ($1, $2, $3, $4);`;
 
 function postReview(req, res) {
-  console.log("BODY -------- :", req.body);
   const review = req.body;
   pool
     .query(QUERY, [

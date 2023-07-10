@@ -36,14 +36,9 @@ export function ReviewPage() {
       method: "POST",
       body: JSON.stringify(review),
       headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        // history.push(`${pageNum + 1}`);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    }).catch((error) => {
+      console.error(error);
+    });
     dispatch({ type: `NEXT_PAGE` });
   };
 
