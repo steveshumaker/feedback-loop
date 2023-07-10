@@ -14,22 +14,32 @@ import EmojiEmotionsRoundedIcon from "@mui/icons-material/EmojiEmotionsRounded";
 import RecommendRoundedIcon from "@mui/icons-material/RecommendRounded";
 import PsychologyAltRoundedIcon from "@mui/icons-material/PsychologyAltRounded";
 import AddCommentRoundedIcon from "@mui/icons-material/AddCommentRounded";
+import { useState } from "react";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export function ReviewPage() {
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const pageNum = useSelector((store) => store.pages);
   const review = useSelector((store) => store.submission);
   const history = useHistory();
 
   const nextPage = () => {
-    console.log("REVIEW --> ", review);
+    setOpen(true);
     fetch("/review", {
       method: "POST",
       body: JSON.stringify(review),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
-        history.push(`${pageNum + 1}`);
+        // history.push(`${pageNum + 1}`);
+        console.log(response);
       })
       .catch((error) => {
         console.error(error);
@@ -40,6 +50,14 @@ export function ReviewPage() {
   const previousPage = () => {
     history.push(`${pageNum - 1}`);
     dispatch({ type: `PREVIOUS_PAGE` });
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    history.push(`/5`);
+    setOpen(false);
   };
 
   return (
@@ -83,6 +101,15 @@ export function ReviewPage() {
             <Button variant="contained" color="success" onClick={nextPage}>
               Submit
             </Button>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert
+                onClose={handleClose}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                This is a success message!
+              </Alert>
+            </Snackbar>
             <Button variant="contained" onClick={previousPage}>
               Back
             </Button>
