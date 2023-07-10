@@ -23,6 +23,11 @@ export function ReviewPage() {
     dispatch({ type: `NEXT_PAGE` });
   };
 
+  const previousPage = () => {
+    history.push(`${pageNum - 1}`);
+    dispatch({ type: `PREVIOUS_PAGE` });
+  };
+
   return (
     <div>
       <h2>Please review your submission:</h2>
@@ -35,6 +40,7 @@ export function ReviewPage() {
         </ul>
       </div>
       <button onClick={nextPage}>Submit</button>
+      <button onClick={previousPage}>Back</button>
     </div>
   );
 }

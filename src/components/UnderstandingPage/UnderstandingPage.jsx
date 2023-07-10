@@ -18,6 +18,11 @@ export function UnderstandingPage() {
     return;
   };
 
+  const previousPage = () => {
+    history.push(`/`);
+    dispatch({ type: `PREVIOUS_PAGE` });
+  }
+
   return (
     <div>
       <h2>How well did you understand today's material?</h2>
@@ -28,6 +33,7 @@ export function UnderstandingPage() {
         placeholder="1-5"
       />
       <button onClick={nextPage}>Next</button>
+      <button onClick={previousPage}>Back</button>
     </div>
   );
 }

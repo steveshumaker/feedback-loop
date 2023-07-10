@@ -12,7 +12,11 @@ export function CommentsPage() {
     history.push(`${pageNum + 1}`);
     dispatch({ type: `NEXT_PAGE` });
     dispatch({ type: `ADD_COMMENTS`, payload: comments });
+  };
 
+  const previousPage = () => {
+    history.push(`${pageNum - 1}`);
+    dispatch({ type: `PREVIOUS_PAGE` });
   };
 
   return (
@@ -24,6 +28,7 @@ export function CommentsPage() {
         type="text"
       />
       <button onClick={nextPage}>Next</button>
+      <button onClick={previousPage}>Back</button>
     </div>
   );
 }

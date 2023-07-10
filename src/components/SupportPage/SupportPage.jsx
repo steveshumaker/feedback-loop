@@ -18,6 +18,11 @@ export function SupportPage() {
     return;
   };
 
+  const previousPage = () => {
+    history.push(`${pageNum - 1}`);
+    dispatch({ type: `PREVIOUS_PAGE` });
+  }
+
   return (
     <div>
       <h2>How supported do you feel today?</h2>
@@ -28,6 +33,7 @@ export function SupportPage() {
         placeholder="1-5"
       />
       <button onClick={nextPage}>Next</button>
+      <button onClick={previousPage}>Back</button>
     </div>
   );
 }
