@@ -8,6 +8,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -39,21 +44,40 @@ const columns = [
   },
 ];
 
-
 export function AdminPage() {
   const [reviews, setReviews] = useState([]);
+  const [selection, setSelection] = useState([]);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const pageNum = useSelector((store) => store.pages);
   const history = useHistory();
+
+  const handleClose = () => {
+    if (selection.length > 1) {
+      selection.map((id) => {
+        fetch(`/review/${id}`, {
+          method: "DELETE",
+        }).then(getReviews());
+      });
+    } else {
+      fetch(`/review/${selection[0]}`, {
+        method: "DELETE",
+      }).then(getReviews());
+    }
+    setOpen(false);
+  };
+
+  const handleReturn = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     getReviews();
   }, []);
 
   const nextPage = () => {
-    // history.push(`/`);
-    // dispatch({ type: `RESET` });
-    console.log(reviews);
+    history.push(`/`);
+    dispatch({ type: `RESET` });
   };
 
   const getReviews = () => {
@@ -63,9 +87,13 @@ export function AdminPage() {
       .catch((error) => console.error(error));
   };
 
+  const deleteReviews = () => {
+    setOpen(true);
+  };
+
   const rows = reviews.map((review) => {
     return review;
-  })
+  });
 
   return (
     <Card sx={{ width: "75%", margin: "auto" }}>
@@ -86,6 +114,9 @@ export function AdminPage() {
               }}
               pageSizeOptions={[5, 10]}
               checkboxSelection
+              onRowSelectionModelChange={(newSelectionModel) => {
+                setSelection(newSelectionModel);
+              }}
             />
           </div>
 
@@ -93,7 +124,55 @@ export function AdminPage() {
             <Button variant="contained" color="success" onClick={nextPage}>
               Placeholder
             </Button>
+            {selection.length > 0 ? (
+              <Button
+                variant="contained"
+                color="success"
+                onClick={deleteReviews}
+              >
+                Delete
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="success"
+                onClick={deleteReviews}
+                disabled
+              >
+                Delete
+              </Button>
+            )}
           </CardActions>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Use Google's location service?"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                component={"span"}
+                id="alert-dialog-description"
+              >
+                Are you sure you want to permanently delete reviews for the
+                following ID(s):{" "}
+                <ul>
+                  {selection.map((id) => {
+                    return <li key={id}>{id}</li>;
+                  })}
+                </ul>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleReturn}>No!</Button>
+              <Button onClick={handleClose} autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </CardContent>
     </Card>

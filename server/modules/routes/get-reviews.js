@@ -1,5 +1,5 @@
 const pool = require('../pool.js');
-const QUERY = "SELECT * FROM feedback;";
+const QUERY = "SELECT * FROM feedback ORDER BY id DESC;";
 
 function getReviews(req, res) {
   pool.query(QUERY)

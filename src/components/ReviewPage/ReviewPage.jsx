@@ -102,7 +102,7 @@ export function ReviewPage() {
                 severity="success"
                 sx={{ width: "100%" }}
               >
-                This is a success message!
+                Succesfully submitted! Close to continue.
               </Alert>
             </Snackbar>
             <Button variant="contained" onClick={previousPage}>
