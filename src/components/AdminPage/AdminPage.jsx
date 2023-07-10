@@ -1,5 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -14,6 +12,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+// Init columns for datagrid
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   { field: "feeling", headerName: "Feeling", width: 90 },
@@ -48,10 +47,56 @@ export function AdminPage() {
   const [reviews, setReviews] = useState([]);
   const [selection, setSelection] = useState([]);
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
-  const pageNum = useSelector((store) => store.pages);
-  const history = useHistory();
 
+  // init rows of the data grid
+  const rows = reviews.map((review) => {
+    return review;
+  });
+
+  // GET request to populate the reviews
+  const getReviews = () => {
+    fetch("/review")
+      .then((response) => response.json())
+      .then((reviews) => setReviews(reviews))
+      .catch((error) => console.error(error));
+  };
+
+  const flagReview = () => {
+    if (selection.length > 1) {
+      selection.map((id) => {
+        fetch(`/review/${id}`, {
+          method: "PUT",
+          body: JSON.stringify({ flagged: true }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(() => getReviews())
+          .catch((error) => {
+            console.error(error);
+          });
+      });
+    } else {
+      fetch(`/review/${selection[0]}`, {
+        method: "PUT",
+        body: JSON.stringify({ flagged: true }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(() => getReviews())
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  // Function to open the delete alert
+  const deleteReviews = () => {
+    setOpen(true);
+  };
+
+  // Function for closing the delete alert, when 'yes' selected
   const handleClose = () => {
     if (selection.length > 1) {
       selection.map((id) => {
@@ -67,33 +112,15 @@ export function AdminPage() {
     setOpen(false);
   };
 
+  // Function for closing the delete alert when the user decides not to delete IDs
   const handleReturn = () => {
     setOpen(false);
   };
 
+  // useEffect to render the datagrid on page load
   useEffect(() => {
     getReviews();
   }, []);
-
-  const nextPage = () => {
-    history.push(`/`);
-    dispatch({ type: `RESET` });
-  };
-
-  const getReviews = () => {
-    fetch("/review")
-      .then((response) => response.json())
-      .then((reviews) => setReviews(reviews))
-      .catch((error) => console.error(error));
-  };
-
-  const deleteReviews = () => {
-    setOpen(true);
-  };
-
-  const rows = reviews.map((review) => {
-    return review;
-  });
 
   return (
     <Card sx={{ width: "75%", margin: "auto" }}>
@@ -103,6 +130,7 @@ export function AdminPage() {
             ADMIN
           </Typography>
 
+          {/* Datagrid */}
           <div style={{ height: 400, width: "100%" }}>
             <DataGrid
               rows={rows}
@@ -120,16 +148,13 @@ export function AdminPage() {
             />
           </div>
 
+          {/* Delete Reviews Section */}
           <CardActions>
-            <Button variant="contained" color="success" onClick={nextPage}>
-              Placeholder
+            <Button variant="contained" color="success" onClick={flagReview}>
+              FLAG
             </Button>
             {selection.length > 0 ? (
-              <Button
-                variant="contained"
-                color="success"
-                onClick={deleteReviews}
-              >
+              <Button variant="contained" color="error" onClick={deleteReviews}>
                 Delete
               </Button>
             ) : (
@@ -143,6 +168,8 @@ export function AdminPage() {
               </Button>
             )}
           </CardActions>
+
+          {/* Dialog section for alert */}
           <Dialog
             open={open}
             onClose={handleClose}
