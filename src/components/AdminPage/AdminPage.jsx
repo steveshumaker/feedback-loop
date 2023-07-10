@@ -64,9 +64,10 @@ export function AdminPage() {
   const flagReview = () => {
     if (selection.length > 1) {
       selection.map((id) => {
+        const reviewToUpdate = reviews.find((review) => review.id === id);
         fetch(`/review/${id}`, {
           method: "PUT",
-          body: JSON.stringify({ flagged: true }),
+          body: JSON.stringify({ flagged: !reviewToUpdate.flagged }),
           headers: {
             "Content-Type": "application/json",
           },
@@ -77,9 +78,12 @@ export function AdminPage() {
           });
       });
     } else {
+      const reviewToUpdate = reviews.find(
+        (review) => review.id === selection[0]
+      );
       fetch(`/review/${selection[0]}`, {
         method: "PUT",
-        body: JSON.stringify({ flagged: true }),
+        body: JSON.stringify({ flagged: !reviewToUpdate.flagged }),
         headers: {
           "Content-Type": "application/json",
         },
