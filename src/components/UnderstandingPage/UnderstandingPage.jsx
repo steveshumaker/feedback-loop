@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { validateInput } from "../helpers/inputValidation";
 
 export function UnderstandingPage() {
   const [understanding, setUnderstanding] = useState("");
@@ -9,10 +10,12 @@ export function UnderstandingPage() {
   const history = useHistory();
 
   const nextPage = () => {
-    history.push(`${pageNum + 1}`);
-    dispatch({ type: `NEXT_PAGE` });
-    dispatch({ type: `ADD_UNDERSTANDING`, payload: understanding });
-
+    if (validateInput(understanding)) {
+      history.push(`${pageNum + 1}`);
+      dispatch({ type: `NEXT_PAGE` });
+      dispatch({ type: `ADD_UNDERSTANDING`, payload: understanding });
+    }
+    return;
   };
 
   return (

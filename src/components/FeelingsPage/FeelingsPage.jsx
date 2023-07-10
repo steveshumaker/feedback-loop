@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { validateInput } from "../helpers/inputValidation";
 
 export function FeelingsPage() {
   const [feeling, setFeeling] = useState("");
@@ -9,9 +10,12 @@ export function FeelingsPage() {
   const history = useHistory();
 
   const nextPage = () => {
-    history.push(`${pageNum + 1}`);
-    dispatch({ type: `NEXT_PAGE` });
-    dispatch({ type: `ADD_FEELING`, payload: feeling });
+    if (validateInput(feeling)) {
+      history.push(`${pageNum + 1}`);
+      dispatch({ type: `NEXT_PAGE` });
+      dispatch({ type: `ADD_FEELING`, payload: feeling });
+    }
+    return;
   };
 
   return (

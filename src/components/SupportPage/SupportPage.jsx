@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { validateInput } from "../helpers/inputValidation";
 
 export function SupportPage() {
   const [support, setSupport] = useState("");
@@ -9,10 +10,12 @@ export function SupportPage() {
   const history = useHistory();
 
   const nextPage = () => {
-    history.push(`${pageNum + 1}`);
-    dispatch({ type: `NEXT_PAGE` });
-    dispatch({ type: `ADD_SUPPORT`, payload: support });
-
+    if (validateInput(support)) {
+      history.push(`${pageNum + 1}`);
+      dispatch({ type: `NEXT_PAGE` });
+      dispatch({ type: `ADD_SUPPORT`, payload: support });
+    }
+    return;
   };
 
   return (

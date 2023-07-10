@@ -1,14 +1,13 @@
 const pool = require("../pool.js");
 
-const QUERY = `INSERT INTO feedback VALUES ($1, $2, $3, $4, $5);`;
-let count = 1;
+const QUERY = `INSERT INTO feedback ("feeling", "understanding", "support", "comments") 
+              VALUES ($1, $2, $3, $4);`;
 
 function postReview(req, res) {
   console.log("BODY -------- :", req.body);
   const review = req.body;
   pool
     .query(QUERY, [
-      count + 1,
       review.feeling,
       review.understanding,
       review.support,
