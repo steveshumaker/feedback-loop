@@ -8,6 +8,7 @@ import { SupportPage } from "../SupportPage/SupportPage";
 import { ReviewPage } from "../ReviewPage/ReviewPage";
 import { UnderstandingPage } from "../UnderstandingPage/UnderstandingPage";
 import { ThanksPage } from "../ThanksPage/ThanksPage";
+import { AdminPage } from "../AdminPage/AdminPage";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
       </Route>
       <Route exact path="/5">
         <ThanksPage/>
+      </Route>
+      <Route exact path="/admin">
+        <AdminPage/>
       </Route>
       
     </Router>

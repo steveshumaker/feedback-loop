@@ -9,7 +9,6 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
-import CustomizedSnackbars from "../SnackbarTest/SnackbarTest";
 
 export function FeelingsPage() {
   const [feeling, setFeeling] = useState("");
