@@ -25,7 +25,7 @@ export function ThanksPage() {
             Thank you for your submission!
           </Typography>
           <CardActions>
-            <Button variant="contained" onClick={nextPage}>
+            <Button variant="contained" color="success" onClick={nextPage}>
               Leave new feedback
             </Button>
           </CardActions>

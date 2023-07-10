@@ -80,7 +80,7 @@ export function ReviewPage() {
             </List>
           </div>
           <CardActions>
-            <Button variant="contained" onClick={nextPage}>
+            <Button variant="contained" color="success" onClick={nextPage}>
               Submit
             </Button>
             <Button variant="contained" onClick={previousPage}>

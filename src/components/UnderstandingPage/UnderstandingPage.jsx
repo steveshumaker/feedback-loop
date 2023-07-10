@@ -8,6 +8,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+
 
 export function UnderstandingPage() {
   const [understanding, setUnderstanding] = useState("");
@@ -16,12 +18,9 @@ export function UnderstandingPage() {
   const history = useHistory();
 
   const nextPage = () => {
-    if (validateInput(understanding)) {
-      history.push(`${pageNum + 1}`);
-      dispatch({ type: `NEXT_PAGE` });
-      dispatch({ type: `ADD_UNDERSTANDING`, payload: understanding });
-    }
-    return;
+    history.push(`${pageNum + 1}`);
+    dispatch({ type: `NEXT_PAGE` });
+    dispatch({ type: `ADD_UNDERSTANDING`, payload: understanding });
   };
 
   const previousPage = () => {
@@ -46,13 +45,17 @@ export function UnderstandingPage() {
           />
           <CardActions>
             {understanding > 0 && understanding < 6 ? (
-              <Button variant="contained" onClick={nextPage}>
+              <Button variant="contained" color="success" onClick={nextPage}>
                 Next
               </Button>
             ) : (
-              <Button variant="contained" onClick={nextPage} disabled>
-                Next
-              </Button>
+              <Tooltip title="Please enter a value between 1 and 5 before proceeding.">
+                <span>
+                  <Button variant="contained" onClick={nextPage} disabled>
+                    Next
+                  </Button>
+                </span>
+              </Tooltip>
             )}
             <Button variant="contained" onClick={previousPage}>
               Back

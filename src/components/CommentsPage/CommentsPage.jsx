@@ -40,7 +40,7 @@ export function CommentsPage() {
             type="text"
           />
           <CardActions>
-            <Button variant="contained" onClick={nextPage}>
+            <Button variant="contained" color="success" onClick={nextPage}>
               Next
             </Button>
             <Button variant="contained" onClick={previousPage}>

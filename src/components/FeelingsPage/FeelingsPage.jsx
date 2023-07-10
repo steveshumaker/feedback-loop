@@ -8,6 +8,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 
 export function FeelingsPage() {
   const [feeling, setFeeling] = useState("");
@@ -16,12 +17,9 @@ export function FeelingsPage() {
   const history = useHistory();
 
   const nextPage = () => {
-    if (validateInput(feeling)) {
-      history.push(`${pageNum + 1}`);
-      dispatch({ type: `NEXT_PAGE` });
-      dispatch({ type: `ADD_FEELING`, payload: feeling });
-    }
-    return;
+    history.push(`${pageNum + 1}`);
+    dispatch({ type: `NEXT_PAGE` });
+    dispatch({ type: `ADD_FEELING`, payload: feeling });
   };
 
   return (
@@ -40,13 +38,17 @@ export function FeelingsPage() {
           />
           <CardActions>
             {feeling > 0 && feeling < 6 ? (
-              <Button variant="contained" onClick={nextPage}>
+              <Button variant="contained" color="success" onClick={nextPage}>
                 Next
               </Button>
             ) : (
-              <Button variant="contained" onClick={nextPage} disabled>
-                Next
-              </Button>
+              <Tooltip title="Please enter a value between 1 and 5 before proceeding.">
+                <span>
+                  <Button variant="contained" onClick={nextPage} disabled>
+                    Next
+                  </Button>
+                </span>
+              </Tooltip>
             )}
           </CardActions>
         </div>
