@@ -6,7 +6,7 @@ This app is a simple feedback loop that asks for input from the user on a few si
 
 The app will guide the user with conditional rendering of the next button, and also allows 'back' functionality. The app is deployed at: [feedback loop](https://redux-feedback-loop-06d6beceb5f1.herokuapp.com/#/), feel free to add your feedback!
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+### Below is an example of my thought process:
 
 ## TODO
 0. What we will need:
