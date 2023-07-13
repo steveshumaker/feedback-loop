@@ -1,10 +1,10 @@
-# Project Name
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+# Prime Digital Academy Feedback Loop 
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+This app is a simple feedback loop that asks for input from the user on a few simple metrics. It also gives the user the option to add comments.
+
+The app will guide the user with conditional rendering of the next button, and also allows 'back' functionality. The app is deployed at: [feedback loop](https://redux-feedback-loop-06d6beceb5f1.herokuapp.com/#/), feel free to add your feedback!
 
 Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
 
